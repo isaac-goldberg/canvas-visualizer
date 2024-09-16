@@ -14,10 +14,12 @@
 
             <label for="width">Width:</label>
             <input id="width" value="1200">
-            <label for="height">Height:</label>
+            <label for="height" style="margin-left: 10px">Height:</label>
             <input id="height" value="600">
 
             <button id="refresh">Refresh Canvas</button>
+
+            <a class="help" href="https://github.com/isaac-goldberg/canvas-visualizer" target="_blank">Help</a>
         </div>
 
         <div class="canvas">
@@ -28,6 +30,7 @@
     <canvas id="dummy" width="0" height="0"></canvas>
 
     <script src="https://www.unpkg.com/ace-builds@latest/src-noconflict/ace.js"></script>
+    <script src="https://www.unpkg.com/ace-builds@latest/src-noconflict/ext-language_tools.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

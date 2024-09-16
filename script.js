@@ -6,9 +6,13 @@ canvasVisualizer_stratum2.load().then(() => document.fonts.add(canvasVisualizer_
 const canvasVisualizer_rajdhani = new FontFace("Rajdhani-Bold", "url(rajdhani-bold.ttf)");
 canvasVisualizer_rajdhani.load().then(() => document.fonts.add(canvasVisualizer_rajdhani));
 
+ace.require("ace/ext/language_tools");
 const canvasVisualizer_editor = ace.edit("editor");
 canvasVisualizer_editor.setTheme("ace/theme/monokai");
 canvasVisualizer_editor.session.setMode("ace/mode/javascript");
+canvasVisualizer_editor.setOptions({
+    enableLiveAutocompletion: true,
+});
 
 const canvas = document.getElementById("canvas");
 const canvasVisualizer_dummy = document.getElementById("dummy");
@@ -47,7 +51,7 @@ function loadImage(src) {
 function canvasVisualizer_update() {
     var canvasVisualizer_code = canvasVisualizer_editor.session.getValue();
     localStorage.setItem("code", canvasVisualizer_code);
-    canvasVisualizer_code = `(async () => {${canvasVisualizer_code}})();`;
+    canvasVisualizer_code = `(async () => {\n${canvasVisualizer_code}\n})();`;
 
     var context = canvasVisualizer_dummy.getContext("2d");
     try {
@@ -73,10 +77,7 @@ if (canvasVisualizer_existingHeight) {
     canvas.height = canvasVisualizer_existingHeight;
 }
 
-const canvasVisualizer_defaultCode = "// canvas, context, and the asynchronous \"loadImage\" function are already defined in the scope of this script.\n" +
-    "// this will be wrapped in an async function, so you may use the \"await\" keyword - ignore the error that shows up on the left when using await.\n" +
-    "// if \"await loadImage()\" or other async calls aren't working, click the refresh button.\n" +
-    "// if your code isn't rendering due to errors, check the developer console.\n\n"
+const canvasVisualizer_defaultCode = "// canvas, context, and the asynchronous \"loadImage\" function are already defined for you.\n\n";
 var canvasVisualizer_existingCode = localStorage.getItem("code");
 if (!canvasVisualizer_existingCode) localStorage.setItem("code", canvasVisualizer_defaultCode);
 else canvasVisualizer_update(canvasVisualizer_existingCode);
